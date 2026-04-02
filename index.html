@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubuntu Bites | A Home Away From Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* DESIGN: Warm, African-inspired earth tones [Requirement 7] */
+        :root {
+            --primary-orange: #E67E22;
+            --deep-brown: #5D4037;
+            --earthy-green: #2E7D32;
+            --warm-sand: #FDF5E6;
+            --text-dark: #333;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--warm-sand); color: var(--text-dark); line-height: 1.6; }
+
+        /* NAVIGATION BAR [Requirement 8] */
+        header { background: var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1200px; margin: auto; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-orange); }
+        .nav-links { list-style: none; display: flex; }
+        .nav-links li { margin-left: 20px; }
+        .nav-links a { text-decoration: none; color: var(--deep-brown); font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary-orange); }
+
+        /* HERO SECTION [Requirement 2] - Traditional Restaurant Background */
+        .hero { 
+            background: linear-gradient(rgba(93, 64, 55, 0.7), rgba(230, 126, 34, 0.7)), 
+                        url('https://images.unsplash.com/photo-1555939594-58d7cb561ec1?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; 
+            background-position: center; 
+            height: 70vh;
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+            text-align: center; 
+            color: var(--white); 
+            padding: 0 20px;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '🍽️';
+            position: absolute;
+            font-size: 8rem;
+            opacity: 0.1;
+            top: 10%;
+            left: 10%;
+        }
+        
+        .hero::after {
+            content: '🌍';
+            position: absolute;
+            font-size: 8rem;
+            opacity: 0.1;
+            bottom: 10%;
+            right: 10%;
+        }
+
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin-bottom: 2rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        .cta-buttons .btn { padding: 12px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; margin: 5px; display: inline-block; transition: 0.3s; }
+        .btn-primary { background: var(--primary-orange); color: var(--white); }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4); }
+        .btn-secondary { background: transparent; border: 2px solid var(--white); color: var(--white); }
+        .btn-secondary:hover { background: var(--white); color: var(--primary-orange); }
+
+        /* SECTIONS GENERAL */
+        section { padding: 4rem 5%; max-width: 1200px; margin: auto; }
+        h2 { text-align: center; color: var(--deep-brown); margin-bottom: 2rem; font-size: 2.5rem; }
+
+        /* VALUE PROPS [Requirement 2] */
+        .props-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; text-align: center; }
+        .prop-card { background: var(--white); padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; }
+        .prop-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .prop-card i { font-size: 2rem; color: var(--earthy-green); margin-bottom: 1rem; display: block; }
+
+        /* MENU SECTION WITH BACKGROUND IMAGE */
+        #menu {
+            background: linear-gradient(rgba(93, 64, 55, 0.85), rgba(93, 64, 55, 0.85)), url('a70f5.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 4rem 5%;
+            position: relative;
+        }
+
+        #menu h2 {
+            color: var(--white);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            margin-bottom: 3rem;
+            font-size: 3rem;
+        }
+
+        /* MENU [Requirement 3] */
+        .menu-category { margin-bottom: 3rem; }
+        .menu-category h3 { 
+            border-left: 5px solid var(--primary-orange); 
+            padding-left: 10px; 
+            margin-bottom: 1.5rem; 
+            color: var(--white);
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        
+        /* Enhanced Menu Item Cards with Images */
+        .menu-item { 
+            background: var(--white); 
+            border-radius: 12px; 
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 16px 32px rgba(230, 126, 34, 0.4);
+        }
+        
+        .menu-item-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .menu-item-content {
+            padding: 1.5rem;
+            background: var(--white);
+        }
+        
+        .menu-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--deep-brown);
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .menu-item p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .price { 
+            color: var(--earthy-green); 
+            font-weight: bold; 
+            font-size: 1.3rem; 
+            display: block;
+            background: var(--warm-sand);
+            padding: 0.75rem;
+            border-radius: 5px;
+            text-align: center;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        /* SOCIAL MEDIA BUTTONS */
+        .social-media-section {
+            background: var(--white);
+            padding: 3rem 5%;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .social-media-section h3 {
+            color: var(--deep-brown);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.5rem;
+            color: var(--white);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 2px solid transparent;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+
+        /* Individual Social Media Colors */
+        .whatsapp {
+            background: #25D366;
+        }
+
+        .whatsapp:hover {
+            background: #1fa752;
+            border-color: #25D366;
+        }
+
+        .instagram {
+            background: linear-gradient(45deg, #F9CE34, #EE2A7B, #6228D7);
+        }
+
+        .instagram:hover {
+            transform: translateY(-8px) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(230, 126, 34, 0.4);
+        }
+
+        .tiktok {
+            background: #000000;
+        }
+
+        .tiktok:hover {
+            background: #25f4ee;
+            color: #000;
+        }
+
+        .facebook {
+            background: #1877F2;
+        }
+
+        .facebook:hover {
+            background: #0a66c2;
+            border-color: #1877F2;
+        }
+
+        .social-btn-label {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            color: var(--deep-brown);
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-btn-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .social-btn-wrapper:hover .social-btn-label {
+            opacity: 1;
+        }
+
+        /* ORDER FORM [Requirement 5] */
+        .order-container { max-width: 700px; margin: auto; background: var(--white); padding: 2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--deep-brown); }
+        input, select, textarea { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 5px; font-size: 1rem; transition: 0.3s; }
+        input:focus, select:focus, textarea:focus { outline: none; border: 2px solid var(--primary-orange); box-shadow: 0 0 8px rgba(230, 126, 34, 0.2); }
+        
+        .meals-section { background: var(--warm-sand); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; }
+        .meals-section h4 { color: var(--deep-brown); margin-bottom: 1rem; font-size: 1.1rem; }
+        
+        .meal-row { background: var(--white); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid var(--primary-orange); position: relative; }
+        .meal-row h5 { color: var(--deep-brown); margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
+        
+        .meal-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        
+        .price-display { background: var(--earthy-green); color: var(--white); padding: 1rem; border-radius: 5px; text-align: center; font-size: 1.1rem; font-weight: bold; margin-top: 0.5rem; }
+        
+        .order-summary { background: var(--warm-sand); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 5px solid var(--earthy-green); max-height: 400px; overflow-y: auto; }
+        .order-summary h4 { color: var(--deep-brown); margin-bottom: 1rem; }
+        .summary-line { display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid #ddd; color: var(--text-dark); font-size: 0.95rem; }
+        .summary-line:last-of-type { border-bottom: 2px solid var(--primary-orange); }
+        .summary-total { display: flex; justify-content: space-between; padding: 1rem 0; font-size: 1.3rem; font-weight: bold; color: var(--earthy-green); margin-top: 1rem; border-top: 2px solid var(--primary-orange); padding-top: 1rem; }
+        
+        .payment-methods { background: var(--warm-sand); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; }
+        .payment-methods h4 { color: var(--deep-brown); margin-bottom: 1rem; }
+        .payment-option { margin-bottom: 1rem; }
+        .payment-option input[type="radio"] { margin-right: 10px; cursor: pointer; }
+        .payment-option label { display: inline; margin-bottom: 0; font-weight: 500; cursor: pointer; }
+        
+        .submit-btn { background: var(--earthy-green); color: white; border: none; padding: 15px; width: 100%; font-size: 1.1rem; cursor: pointer; border-radius: 5px; transition: 0.3s; font-weight: bold; }
+        .submit-btn:hover { background: #1b5e20; transform: scale(1.02); box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3); }
+        .submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: scale(1); }
+
+        /* ADD/REMOVE MEAL BUTTONS */
+        .meal-actions { display: flex; gap: 10px; margin-top: 1rem; }
+        .btn-remove-meal {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn-remove-meal:hover {
+            background: #c0392b;
+        }
+
+        .btn-add-meal {
+            background: var(--primary-orange);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            margin-top: 1rem;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .btn-add-meal:hover {
+            background: #d45f0a;
+            transform: scale(1.02);
+        }
+
+        /* CONFIRMATION MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--white);
+            margin: 3% auto;
+            padding: 2rem;
+            border: 1px solid #888;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s ease;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h2 {
+            color: var(--earthy-green);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .modal-content p {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .confirmation-details {
+            background: var(--warm-sand);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .confirmation-details p {
+            margin-bottom: 0.5rem;
+            color: var(--deep-brown);
+            font-size: 0.95rem;
+        }
+
+        .meal-detail-hidden {
+            display: none;
+        }
+
+        .modal-btn {
+            background: var(--primary-orange);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.3s;
+            margin-top: 1rem;
+        }
+
+        .modal-btn:hover {
+            background: #d45f0a;
+            transform: scale(1.05);
+        }
+
+        /* CONTACT CARD STYLES */
+        .contact-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-card h3 {
+            color: var(--deep-brown);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .contact-card p {
+            color: var(--text-dark);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card a {
+            color: var(--primary-orange);
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .contact-card a:hover {
+            color: var(--deep-brown);
+        }
+
+        .add-meal-checkbox {
+            background: var(--warm-sand);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--deep-brown);
+            cursor: pointer;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .additional-meals-container {
+            display: none;
+        }
+
+        .additional-meals-container.show {
+            display: block;
+        }
+
+        /* FOOTER [Requirement 8] */
+        footer { background: var(--deep-brown); color: var(--white); text-align: center; padding: 2rem 5%; margin-top: 4rem; }
+        .loyalty { background: var(--primary-orange); padding: 10px; margin-bottom: 1rem; border-radius: 5px; display: inline-block; font-weight: bold; }
+
+        /* RESPONSIVE DESIGN [Requirement 7] */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .menu-grid { grid-template-columns: 1fr; }
+            .menu-item-image { height: 180px; }
+            #menu h2 { font-size: 2rem; }
+            #menu { background-attachment: scroll; }
+            .social-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 1.3rem;
+            }
+            .social-buttons {
+                gap: 15px;
+            }
+            .meal-inputs { grid-template-columns: 1fr; }
+            .order-container { padding: 1.5rem; }
+            .meal-actions { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">🍲 Ubuntu Bites</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#order">Order Online</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="home" class="hero">
+        <h1>A Home Away From Home</h1>
+        <p>Providing students and staff with authentic, affordable, ready-to-go traditional South African meals.</p>
+        <div class="cta-buttons">
+            <a href="#menu" class="btn btn-primary">View Menu</a>
+            <a href="#order" class="btn btn-secondary">Order Now</a>
+        </div>
+    </div>
+
+    <section>
+        <div class="props-grid">
+            <div class="prop-card">
+                <i>🇿🇦</i>
+                <h3>Authentic Meals</h3>
+                <p>Experience the true taste of home with traditional recipes.</p>
+            </div>
+            <div class="prop-card">
+                <i>💰</i>
+                <h3>Student Pricing</h3>
+                <p>Value-based pricing benchmarked against campus competitors.</p>
+            </div>
+            <div class="prop-card">
+                <i>⚡</i>
+                <h3>Quick Service</h3>
+                <p>Convenient meals designed for the busy student lifestyle.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu">
+        <h2>🍽️ Our Menu</h2>
+        
+        <div class="menu-category">
+            <h3>Main Dishes</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="pap-n-vlies.webp" alt="Pap & Vleis" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h4>Pap & Vleis</h4>
+                        <p>Traditional pap served with perfectly grilled meat.</p>
+                        <span class="price">R65 - R85</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="umngqusho.png" alt="Umngqusho" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h4>Umngqusho</h4>
+                        <p>A warm, freshly made hearty samp and beans dish.</p>
+                        <span class="price">R40 - R50</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="mogodu.jpg" alt="Mogodu & Pap" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h4>Mogodu (Tripe) & Pap</h4>
+                        <p>Culturally rich slow-cooked tripe served with pap.</p>
+                        <span class="price">R55 - R70</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-category">
+            <h3>Traditional Delicacies</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="mashonzha.jpg" alt="Mashonzha" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h4>Mashonzha</h4>
+                        <p>Traditional South African dish with mopane worms.</p>
+                        <span class="price">R35 - R50</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="morogo.jpg" alt="Morogo" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h4>Morogo</h4>
+                        <p>Freshly prepared traditional South African greens.</p>
+                        <span class="price">R20 - R30</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="roasted_corn.jpg" alt="Fire-Roasted Corn" class="menu-item-image">
+                    <div class="menu-item-content">
+                        <h4>Fire-Roasted Corn</h4>
+                        <p>The perfect quick snack between lectures.</p>
+                        <span class="price">R20 - R30</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOCIAL MEDIA SECTION -->
+    <section class="social-media-section">
+        <h3>Follow Us & Stay Connected!</h3>
+        <div class="social-buttons">
+            <div class="social-btn-wrapper">
+                <a href="https://wa.me/YOUR_WHATSAPP_NUMBER" target="_blank" class="social-btn whatsapp" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <span class="social-btn-label">WhatsApp</span>
+            </div>
+            <div class="social-btn-wrapper">
+                <a href="https://instagram.com/ubuntu_bites" target="_blank" class="social-btn instagram" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <span class="social-btn-label">Instagram</span>
+            </div>
+            <div class="social-btn-wrapper">
+                <a href="https://tiktok.com/@ubuntu_bites" target="_blank" class="social-btn tiktok" title="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <span class="social-btn-label">TikTok</span>
+            </div>
+            <div class="social-btn-wrapper">
+                <a href="https://facebook.com/ubuntu_bites" target="_blank" class="social-btn facebook" title="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <span class="social-btn-label">Facebook</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" style="background: var(--white);">
+        <h2>About Us</h2>
+        <div style="max-width: 800px; margin: auto; text-align: center;">
+            <p style="font-size: 1.2rem; color: var(--deep-brown);">
+                <strong>Our Mission:</strong> Providing culturally authentic South African meals to students and staff.
+            </p>
+            <br>
+            <p>Ubuntu Bites is more than just a food stall; it's a "home away from home" experience. We understand that many students are living away from home for the first time. We aim to bridge that gap with the comfort of warm, traditional food and a welcoming atmosphere.</p>
+        </div>
+    </section>
+
+    <section id="order">
+        <h2>Order Online</h2>
+        <div class="order-container">
+            <form id="orderForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="fullName" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phoneNumber" placeholder="012 345 6789" required>
+                </div>
+
+                <!-- MEALS SELECTION -->
+                <div class="meals-section">
+                    <h4>📋 Select Your Meal(s)</h4>
+                    
+                    <!-- MEAL 1 (Required) -->
+                    <div class="meal-row" id="meal1">
+                        <h5>Meal 1 <span style="font-size: 0.8rem; color: var(--earthy-green);">(Required)</span></h5>
+                        <div class="form-group">
+                            <label>Select Meal</label>
+                            <select class="mealSelect" data-meal="1" required onchange="updateMealPrice(1)">
+                                <option value="">-- Choose a meal --</option>
+                                <option value="Pap & Vleis|75">Pap & Vleis (R65 - R85)</option>
+                                <option value="Umngqusho|45">Umngqusho (R40 - R50)</option>
+                                <option value="Mogodu & Pap|62.50">Mogodu (Tripe) & Pap (R55 - R70)</option>
+                                <option value="Mashonzha|42.50">Mashonzha (R35 - R50)</option>
+                                <option value="Morogo|25">Morogo (R20 - R30)</option>
+                                <option value="Fire-Roasted Corn|25">Fire-Roasted Corn (R20 - R30)</option>
+                            </select>
+                        </div>
+                        <div class="meal-inputs">
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input type="number" class="mealQty" data-meal="1" value="1" min="1" onchange="calculateTotal()">
+                            </div>
+                            <div class="price-display" id="price1">R0.00</div>
+                        </div>
+                    </div>
+
+                    <!-- ADD MORE MEALS CHECKBOX -->
+                    <div class="add-meal-checkbox">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="addMoreMeals" onchange="toggleAdditionalMeals()">
+                            <span>Would you like to add more meals? (Optional)</span>
+                        </label>
+                    </div>
+
+                    <!-- ADDITIONAL MEALS CONTAINER -->
+                    <div class="additional-meals-container" id="additionalMealsContainer">
+                        <div id="mealsWrapper"></div>
+                        <button type="button" class="btn-add-meal" onclick="addNewMeal()">+ Add Another Meal</button>
+                    </div>
+                </div>
+
+                <!-- ORDER SUMMARY -->
+                <div class="order-summary">
+                    <h4>📊 Order Summary</h4>
+                    <div id="summaryContainer">
+                        <div class="summary-line">
+                            <span id="meal1Name">Meal 1:</span>
+                            <span id="meal1Total">R0.00</span>
+                        </div>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total Amount:</span>
+                        <span id="totalAmount">R0.00</span>
+                    </div>
+                </div>
+
+                <!-- PAYMENT METHOD -->
+                <div class="payment-methods">
+                    <h4>💳 Payment Method</h4>
+                    <div class="payment-option">
+                        <input type="radio" id="cash" name="paymentMethod" value="Cash" required>
+                        <label for="cash">💵 Cash Payment</label>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="card" name="paymentMethod" value="Card">
+                        <label for="card">💳 Card Payment (Debit/Credit)</label>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="transfer" name="paymentMethod" value="Bank Transfer">
+                        <label for="transfer">🏦 Bank Transfer</label>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="wallet" name="paymentMethod" value="Mobile Wallet">
+                        <label for="wallet">📱 Mobile Wallet (Snapscan, Zapper, etc.)</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Place Order</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <h2>✅ Order Received!</h2>
+            <p>Siyabonga! Your order has been successfully received.</p>
+            
+            <div class="confirmation-details">
+                <p><strong>Customer Name:</strong> <span id="confirmName"></span></p>
+                <p><strong>Phone Number:</strong> <span id="confirmPhone"></span></p>
+                <hr style="margin: 1rem 0; border: none; border-top: 1px solid #ddd;">
+                <div id="confirmationMealsContainer"></div>
+                <hr style="margin: 1rem 0; border: none; border-top: 1px solid #ddd;">
+                <p style="font-size: 1.2rem; color: var(--earthy-green); font-weight: bold;">
+                    <strong>Total Amount:</strong> <span id="confirmTotal"></span>
+                </p>
+                <p><strong>Payment Method:</strong> <span id="confirmPayment"></span></p>
+            </div>
+
+            <p style="color: var(--earthy-green); font-weight: bold; margin-top: 1.5rem;">We will contact you shortly to confirm your order.</p>
+            <button class="modal-btn" onclick="closeModal()">Done</button>
+        </div>
+    </div>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <div class="props-grid">
+            <div class="contact-card">
+                <h3>📍 Location</h3>
+                <p>UJ APB — Auckland Park Bunting Road Campus</p>
+            </div>
+            <div class="contact-card">
+                <h3>📞 Phone</h3>
+                <p>Enquire at our campus stall or contact us on:</p>
+                <a href="tel:+27123456789">📱 +27 (0) 12 345 6789</a>
+            </div>
+            <div class="contact-card">
+                <h3>📧 Email</h3>
+                <p><a href="mailto:info@ubuntubites.co.za">info@ubuntubites.co.za</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="loyalty">🌟 Earn points with every purchase!</div>
+        <p>Ubuntu Bites (Pty) Ltd — UJ APB Campus</p>
+        <p>&copy; 2026 Ubuntu Bites. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let mealCount = 1;
+
+        // Toggle additional meals visibility
+        function toggleAdditionalMeals() {
+            const checkbox = document.getElementById('addMoreMeals');
+            const container = document.getElementById('additionalMealsContainer');
+
+            if (checkbox.checked) {
+                container.classList.add('show');
+            } else {
+                container.classList.remove('show');
+                // Remove all additional meals
+                document.getElementById('mealsWrapper').innerHTML = '';
+                mealCount = 1;
+            }
+            calculateTotal();
+        }
+
+        // Add new meal
+        function addNewMeal() {
+            mealCount++;
+            const mealsWrapper = document.getElementById('mealsWrapper');
+            
+            const mealHtml = `
+                <div class="meal-row" id="meal${mealCount}">
+                    <h5>
+                        Meal ${mealCount} <span style="font-size: 0.8rem; color: var(--earthy-green);">(Optional)</span>
+                        <button type="button" class="btn-remove-meal" onclick="removeMeal(${mealCount})">✕ Remove</button>
+                    </h5>
+                    <div class="form-group">
+                        <label>Select Meal</label>
+                        <select class="mealSelect" data-meal="${mealCount}" onchange="updateMealPrice(${mealCount})">
+                            <option value="">-- Choose a meal --</option>
+                            <option value="Pap & Vleis|75">Pap & Vleis (R65 - R85)</option>
+                            <option value="Umngqusho|45">Umngqusho (R40 - R50)</option>
+                            <option value="Mogodu & Pap|62.50">Mogodu (Tripe) & Pap (R55 - R70)</option>
+                            <option value="Mashonzha|42.50">Mashonzha (R35 - R50)</option>
+                            <option value="Morogo|25">Morogo (R20 - R30)</option>
+                            <option value="Fire-Roasted Corn|25">Fire-Roasted Corn (R20 - R30)</option>
+                        </select>
+                    </div>
+                    <div class="meal-inputs">
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" class="mealQty" data-meal="${mealCount}" value="1" min="1" onchange="calculateTotal()">
+                        </div>
+                        <div class="price-display" id="price${mealCount}">R0.00</div>
+                    </div>
+                </div>
+            `;
+            
+            mealsWrapper.innerHTML += mealHtml;
+            calculateTotal();
+        }
+
+        // Remove meal
+        function removeMeal(mealNumber) {
+            const mealElement = document.getElementById(`meal${mealNumber}`);
+            if (mealElement) {
+                mealElement.remove();
+                calculateTotal();
+            }
+        }
+
+        // Update meal price display
+        function updateMealPrice(mealNumber) {
+            const select = document.querySelector(`select[data-meal="${mealNumber}"]`);
+            const priceId = `price${mealNumber}`;
+            const selectedOption = select.value;
+            
+            if (selectedOption) {
+                const [mealName, price] = selectedOption.split('|');
+                document.getElementById(priceId).textContent = `R${parseFloat(price).toFixed(2)}`;
+            } else {
+                document.getElementById(priceId).textContent = 'R0.00';
+            }
+            calculateTotal();
+        }
+
+        // Calculate total - FIXED TO ADD ALL MEALS
+        function calculateTotal() {
+            const summaryContainer = document.getElementById('summaryContainer');
+            summaryContainer.innerHTML = '';
+            
+            let totalAmount = 0;
+
+            // Get ALL meal select elements on the page (both meal1 and additional meals)
+            const allMealSelects = document.querySelectorAll('select.mealSelect');
+
+            allMealSelects.forEach(select => {
+                const mealNumber = select.getAttribute('data-meal');
+                const qtyInput = document.querySelector(`input.mealQty[data-meal="${mealNumber}"]`);
+                
+                if (qtyInput) {
+                    const qty = parseInt(qtyInput.value) || 1;
+                    const mealValue = select.value;
+                    
+                    if (mealValue) {
+                        const [name, price] = mealValue.split('|');
+                        const mealPrice = parseFloat(price) * qty;
+                        totalAmount += mealPrice;
+                        
+                        summaryContainer.innerHTML += `
+                            <div class="summary-line">
+                                <span>${name} (x${qty}):</span>
+                                <span>R${mealPrice.toFixed(2)}</span>
+                            </div>
+                        `;
+                    }
+                }
+            });
+
+            document.getElementById('totalAmount').textContent = `R${totalAmount.toFixed(2)}`;
+        }
+
+        // Handle form submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validation
+            const meal1Select = document.querySelector(`select[data-meal="1"]`);
+            const meal1 = meal1Select.value;
+
+            if (!meal1) {
+                alert('⚠️ Please select Meal 1.');
+                return;
+            }
+
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+            if (!paymentMethod) {
+                alert('⚠️ Please select a payment method.');
+                return;
+            }
+
+            // Get form data
+            const fullName = document.getElementById('fullName').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            
+            let confirmationMealsHtml = '';
+            let total = 0;
+
+            // Get ALL meal select elements and process them
+            const allMealSelects = document.querySelectorAll('select.mealSelect');
+
+            allMealSelects.forEach((select, index) => {
+                const mealNumber = select.getAttribute('data-meal');
+                const qtyInput = document.querySelector(`input.mealQty[data-meal="${mealNumber}"]`);
+                const mealValue = select.value;
+
+                if (mealValue) {
+                    const qty = parseInt(qtyInput.value);
+                    const [name, price] = mealValue.split('|');
+                    const mealPrice = parseFloat(price) * qty;
+                    total += mealPrice;
+
+                    // Add separator between meals (except before first meal)
+                    if (index > 0) {
+                        confirmationMealsHtml += `<hr style="margin: 1rem 0; border: none; border-top: 1px solid #ddd;">`;
+                    }
+
+                    confirmationMealsHtml += `
+                        <p><strong>Meal ${mealNumber}:</strong> ${name}</p>
+                        <p><strong>Quantity:</strong> ${qty}</p>
+                        <p><strong>Subtotal:</strong> R${mealPrice.toFixed(2)}</p>
+                    `;
+                }
+            });
+
+            // Populate confirmation modal
+            document.getElementById('confirmName').textContent = fullName;
+            document.getElementById('confirmPhone').textContent = phoneNumber;
+            document.getElementById('confirmationMealsContainer').innerHTML = confirmationMealsHtml;
+            document.getElementById('confirmTotal').textContent = `R${total.toFixed(2)}`;
+            document.getElementById('confirmPayment').textContent = paymentMethod.value;
+
+            // Show modal
+            document.getElementById('confirmationModal').style.display = 'block';
+
+            // Reset form
+            this.reset();
+            document.getElementById('addMoreMeals').checked = false;
+            document.getElementById('additionalMealsContainer').classList.remove('show');
+            document.getElementById('mealsWrapper').innerHTML = '';
+            mealCount = 1;
+            calculateTotal();
+        });
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('confirmationModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('confirmationModal');
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Initialize
+        calculateTotal();
+    </script>
+</body>
+</html>
